@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios Meteorológicos</title>
+    <link href="https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="bg-blue-500 text-white p-5">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html"><img src="LOGO/OFARI_LOGO.png" alt="OFARI_LOGO" class="h-20" /></a>
+            <div>
+                <a href="mision.html" class="px-3">Misión</a>
+                <a href="vision.html" class="px-3">Visión</a>
+                <a href="conocenos.html" class="px-3">Conócenos</a>
+                <a href="casos_de_exito.html" class="px-3">Casos de Éxito</a>
+                <a href="nuestros_servicios.html" class="px-3">Nuestros Servicios</a>
+                <a href="prueba.html" class="px-3">Prueba</a>
+                <a href="contacto.html" class="px-3">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-gray-200 text-center py-20">
+        <h1 class="text-4xl font-bold">OFARI Services</h1>
+        <p class="mt-5">Mapas de monitoreo de la temperatura del mar a 5 y 10 días. Datos de alta resolución de la NOAA.</p>
+    </header>
+    
+    <!-- Seleccionar Tipo de Mapa -->
+    <div class="text-center my-4">
+        <label for="tipoMapa">Selecciona el tipo de mapa:</label>
+        <select id="tipoMapa" class="ml-2 border-2 border-blue-500">
+            <option value="promedio">Promedios de Temperatura</option>
+            <option value="anomalia">Anomalías de Temperatura</option>
+        </select>
+    </div>
+
+    <!-- Galería de Imágenes -->
+    <div id="imageGallery" class="grid grid-cols-2 gap-4 p-4">
+        <!-- Asegúrate de añadir las clases promedio y anomalia a tus imágenes según corresponda -->
+        <img src="Mapas_Atlantico/promedio_sst_mean_5_dias_Atlantico.png" alt="Atlántico_5_dias_MEAN" class="w-full cursor-pointer promedio" onclick="ampliarImagen(this)">
+        <img src="Mapas_Atlantico/promedio_sst_mean_10_dias_Atlantico.png" alt="Atlántico_10_dias_MEAN" class="w-full cursor-pointer promedio" onclick="ampliarImagen(this)">
+        <img src="Mapas_Pacifico/promedio_sst_mean_5_dias_Pacifico.png" alt="Pacifico_5_dias_MEAN" class="w-full cursor-pointer promedio" onclick="ampliarImagen(this)">
+        <img src="Mapas_Pacifico/promedio_sst_mean_10_dias_Pacifico.png" alt="Pacifico_10_dias_MEAN" class="w-full cursor-pointer promedio" onclick="ampliarImagen(this)">
+        <!-- Añade aquí tus imágenes de anomalías con la clase anomalia -->
+        <img src="Mapas_Atlantico/promedio_sst_anom_5_dias_Atlantico.png" alt="Atlántico_5_dias_ANOM" class="w-full cursor-pointer anomalia" onclick="ampliarImagen(this)">
+        <img src="Mapas_Atlantico/promedio_sst_anom_10_dias_Atlantico.png" alt="Atlántico_10_dias_ANOM" class="w-full cursor-pointer anomalia" onclick="ampliarImagen(this)">
+        <img src="Mapas_Pacifico/promedio_sst_anom_5_dias_Pacifico.png" alt="Pacifico_5_dias_ANOM" class="w-full cursor-pointer anomalia" onclick="ampliarImagen(this)">
+        <img src="Mapas_Pacifico/promedio_sst_anom_10_dias_Pacifico.png" alt="Pacifico_10_dias_ANOM" class="w-full cursor-pointer anomalia" onclick="ampliarImagen(this)">
+    </div>
+
+    <!-- Modal para la Imagen Ampliada -->
+    <div id="modalImagen" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+        <img id="imagenAmpliada" src="" alt="Imagen ampliada" class="max-w-full max-h-full cursor-pointer">
+    </div>
+
+    <script>
+    // Función para ampliar imagen
+    function ampliarImagen(imagen) {
+        const modalImagen = document.getElementById('modalImagen');
+        const imagenAmpliada = document.getElementById('imagenAmpliada');
+        
+        imagenAmpliada.src = imagen.src;
+        modalImagen.classList.remove('hidden');
+
+        modalImagen.addEventListener('click', function() {
+            modalImagen.classList.add('hidden');
+        });
+    }
+
+    // Función para cambiar las imágenes mostradas basadas en la selección
+    document.getElementById('tipoMapa').addEventListener('change', function() {
+        let tipo = this.value;
+        let imagenes = document.querySelectorAll('#imageGallery img');
+        imagenes.forEach(img => {
+            if (img.classList.contains(tipo)) {
+                img.style.display = 'block';
+            } else {
+                img.style.display = 'none';
+            }
+        });
+    });
+    </script>
+
+    <footer class="bg-blue-500 text-white text-center p-5 mt-10">
+        © 2024 OFARI Services. Todos los derechos reservados.
+    </footer>
+</body>
+</html>
+
